@@ -23,17 +23,20 @@ void testTree0(){
 }
 
 void testTree1(){
+//    Constructor(should be called twice)
     Tree<> t1("Yuval");
     Tree<> t2("Boker");
     t1.insert(7);
     t2.insert(3);
-//    Copy-Constructor
+//    Copy-Constructor(should be called once)
     Tree<>temp1(t1);
-//    Assignment-Operator
+//    Assignment-Operator(should be called once)
     temp1 = t2;
-//    Move-Constructor
+//    Move-Constructor(should be called once)
     Tree<>temp2 = move (t2);
+//    Move-Operator (should be called once)
     temp2 = move(t1);
+//     Destructor(should be called four times)
 }
 
 
