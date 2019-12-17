@@ -33,12 +33,13 @@ Tree<T>::Tree(const Tree<T>& other): name(other.name), size(other.size-1), root(
 template<typename T>
 Tree<T>& Tree<T>::operator=(const Tree<T>& other){
     cout << "Assignment-Operator was called" << endl;
+    if(this == &other)
+        return *this;
     //Delete current Tree.
     this->removeTree();
     //Copy
     this->insert(other.root->data);
     copyHelper(this->root, other.root);
-    this->name = other.name;
     this->size = other.size;
     return *this;
 }
@@ -55,6 +56,8 @@ Tree<T>::Tree(Tree<T>&& other) noexcept : root(other.root), size(other.size), na
 template<typename T>
 Tree<T>& Tree<T>::operator=(Tree<T>&& other) noexcept {
     cout << "Move-Operator was called" << endl;
+    if(this == &other)
+        return *this;
     this->removeTree();
     this->root = other.root;
     this->size = other.size;
