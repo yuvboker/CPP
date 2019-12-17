@@ -41,6 +41,7 @@ Tree<T>& Tree<T>::operator=(const Tree<T>& other){
     this->insert(other.root->data);
     copyHelper(this->root, other.root);
     this->size = other.size;
+    this->name = other.name;
     return *this;
 }
 
@@ -61,6 +62,7 @@ Tree<T>& Tree<T>::operator=(Tree<T>&& other) noexcept {
     this->removeTree();
     this->root = other.root;
     this->size = other.size;
+    this->name = other.name;
     other.root = nullptr;
     other.size = 0;
     return *this;
