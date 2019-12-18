@@ -38,15 +38,17 @@ Tree<T>::Tree(const Tree<T>& other): name_(other.name()), size_(other.size()), r
 template<typename T>
 Tree<T>& Tree<T>::operator=(const Tree<T>& other){
     cout << "Assignment-Operator of " << name_ << " was called" << endl;
-    if(this == &other)
-        return *this;
-    //Delete current Tree.
-    this->removeTree();
-    //Copy
-    this->insert(other.root()->data());
-    copyHelper(this->root(), other.root());
-    this->setSize(other.size_);
-    this->setName(other.name_);
+    if(this != &other) {
+        //Delete current Tree.
+        this->removeTree();
+        //Copy
+        this->setSize(other.size_);
+        this->setName(other.name_);
+        if (other.root()) {
+            this->setRoot(new Node<T>(other.root()->data()));
+            copyHelper(this->root(), other.root());
+        }
+    }
     return *this;
 }
 
