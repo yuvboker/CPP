@@ -13,52 +13,80 @@ template <typename T = int> class Tree;
 template <typename T = int>
 class Node{
 private:
-    T data;
-    Node<T>* right;
-    Node<T>* left;
-    Node<T>* parent;
+
+    /** Members **/
+    T data_;
+    Node<T>* right_;
+    Node<T>* left_;
+    Node<T>* parent_;
+
+    /** Friends **/
     friend class Tree<T>;
-    //Methods
-    Node<T>(T data);
+
+    explicit Node<T>(T); // Constructor
+
+    /** Getters **/
+    T data() const;
+    Node<T>* left() const;
+    Node<T>* right() const;
+    Node<T>* parent() const;
+
+    /** Setters **/
+    void setLeft(Node<T>*);
+    void setRight(Node<T>*);
+    void setParent(Node<T>*);
+
+    /**** Methods ****/
     void clear();
     Node<T>* insert(T);
-//    return node which replaces the position of the current node
     Node<T>* remove();
-//    return searched Node, if exists. Else return NULL
-    Node<T>* search(T key);
-    Node<T>* rightMostChild();
+    Node<T>* search(T);
+
     void inOrder(Node<T>*);
     void preOrder(Node<T>*);
 
+    /** Helping methods **/
+    Node<T>* rightMostChild(); // Helper for remove
 };
 
 
 template <typename T>
 class Tree {
 private:
-    Node<T>* root;
-    string name;
-    int size;
-//    Private methods:
-    void copyHelper(Node<T>* root, const Node<T>* otherRoot);
-public:
-//    Rule of Seven
-    Tree<T>(std::string name); // constructor
-    ~Tree<T>(); // destructor
-    // Copy before initialization. No deletion is needed
-    Tree<T>(const Tree<T>& other); // Copy Constructor
-    // Copy after initialization. That is, first delete current Tree.
-    Tree<T>& operator=(const Tree<T>& other); // Assignment Operator
-    // Before initialization, shallow copy, no deletion.
-    Tree<T>(Tree<T>&& other) noexcept ; // Move Constructor
-    Tree<T>& operator=(Tree<T>&& other) noexcept ; // Move Operator
 
-//    Methods
-    Node<T>* insert(T key);
+    /** Members **/
+    Node<T>* root_;
+    string name_;
+    int size_;
+
+    /**Helping methods **/
+    void copyHelper(Node<T>*, const Node<T>*); // Helper for copy constructor/ Assignment operator
+
+public:
+
+    /** Rule of 5 **/
+    explicit Tree<T>(string); // constructor
+    ~Tree<T>(); // destructor
+    Tree<T>(const Tree<T>&); // Copy Constructor
+    Tree<T>& operator=(const Tree<T>&); // Assignment Operator
+    Tree<T>(Tree<T>&&) noexcept ; // Move Constructor
+    Tree<T>& operator=(Tree<T>&&) noexcept ; // Move Operator
+
+    /** Getters **/
+    int size() const;
+    Node<T>* root() const;
+    string name() const;
+
+    /** Setters **/
+    void setSize (int);
+    void setRoot(Node<T>*);
+    void setName(const string&);
+
+    /** Methods **/
+    Node<T>* insert(T);
     void remove(Node<T>*);
     void removeTree();
-    Node<T>* search(T key);
-    int getSize();
+    Node<T>* search(T);
     void inOrder();
     void preOrder();
 };
